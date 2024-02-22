@@ -84,7 +84,7 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $form_data = $request->all();
-        
+
         $project->update($form_data);
         $project['slug'] = Str::slug($form_data['name']);
         $project->update();
@@ -100,6 +100,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+
+        $project->delete();
+
+        return redirect()->route('admin.projects.index');
     }
 }

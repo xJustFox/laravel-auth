@@ -29,7 +29,7 @@
                         <th scope="row">{{ $project['id'] }}</th>
                         <td>{{ $project['name'] }}</td>
                         <td>{{ Str::limit($project['description'], 50) }}</td>
-                        <td class="text-center">
+                        <td class="d-flex justify-content-center ">
                             <a href="{{ route('admin.projects.show', ['project' => $project->slug]) }}"
                                 class="btn btn-sm btn-primary">
                                 <i class="fa-solid fa-eye fa-xs"></i>
@@ -37,9 +37,14 @@
                             <a href="{{route('admin.projects.edit', $project->slug) }}" class="btn btn-sm btn-warning mx-2 ">
                                 <i class="fa-solid fa-pen-to-square fa-xs"></i>
                             </a>
-                            <a href="#" class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash-can fa-xs"></i>
-                            </a>
+                            <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo progetto?')">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash-can fa-xs"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
