@@ -13,14 +13,15 @@ main {
         height: 100%;
         background-color: #161d20;
 
-        li{
+        li {
             margin-bottom: 10px;
 
-            
-            .asideMenuLink{
-                i{
+
+            .asideMenuLink {
+                i {
                     padding-right: 5px;
                 }
+
                 text-decoration: none;
                 color: #fff;
                 font-size: larger;
@@ -31,11 +32,18 @@ main {
         }
     }
 
-    .rightMain{
+    .rightMain {
         width: 100%;
 
-        .my-btn{
+        .my-btn {
             padding: 10px;
+        }
+    }
+
+    .detailesPrj{
+        img{
+            border: 1px solid black;
+            max-width: 500px;
         }
     }
 }
