@@ -34,7 +34,7 @@
                                 class="btn btn-sm btn-primary">
                                 <i class="fa-solid fa-eye fa-xs"></i>
                             </a>
-                            <a href="#" class="btn btn-sm btn-warning mx-2 ">
+                            <a href="{{route('admin.projects.edit', $project->slug) }}" class="btn btn-sm btn-warning mx-2 ">
                                 <i class="fa-solid fa-pen-to-square fa-xs"></i>
                             </a>
                             <a href="#" class="btn btn-sm btn-danger">
