@@ -4,7 +4,7 @@
     <div class="container-fluid overflow-y-scroll formProj">
         <div class="container w-50">
             <h1 class="my-4">Add Project</h1>
-            <form class="row" action="{{ route('admin.projects.store')}}" method="post">
+            <form class="row" action="{{ route('admin.projects.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
     
                 {{-- Name Proj --}}
@@ -28,7 +28,10 @@
                 {{-- Img Proj --}}
                 <div class="col-12 mt-3 ">
                     <label class="form-label my-label" for="imgProject">Project Image</label>
-                    <input class="form-control form-control-sm" type="text" name="img" id="imgProject" value="{{ old('img') }}">
+                    <input class="form-control form-control-sm @error('img') is-invalid border-danger @enderror" type="file" name="img" id="imgProject" accept="image/*">
+                    @error('img')
+                        <div id="dateStartError" class="form-text text-danger">{{$message}}</div>
+                    @enderror
                 </div>
     
                 {{-- Date Start Proj --}}
