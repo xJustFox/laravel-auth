@@ -106,6 +106,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->img != null) {
+            Storage::disk('public')->delete($project->img);
+        }
 
         $project->delete();
 
