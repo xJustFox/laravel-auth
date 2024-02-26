@@ -91,9 +91,17 @@ class ProjectController extends Controller
     {
         $form_data = $request->all();
 
-        $project->update($form_data);
+        if ($request->hasFile('img')) {
+            if ($project->img != null) {
+                Storage::disk('public')->delete($project->img);
+            }
+
+            $path = Storage::disk('public')->put('img', $form_data['img']);
+            $form_data['img'] = $path;
+        }
+
         $project['slug'] = Str::slug($form_data['name']);
-        $project->update();
+        $project->update($form_data);
 
         return redirect()->route('admin.projects.show', $project->slug);
     }

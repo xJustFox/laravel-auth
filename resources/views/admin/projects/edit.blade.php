@@ -4,7 +4,7 @@
     <div class="container-fluid overflow-y-scroll formProj">
         <div class="container w-50">
             <h1 class="my-4">Modify Project</h1>
-            <form class="row" action="{{ route('admin.projects.update', $project->slug)}}" method="post">
+            <form class="row" action="{{ route('admin.projects.update', $project->slug)}}" enctype="multipart/form-data" method="post" >
                 @csrf
                 @method('PUT')
     
@@ -29,7 +29,15 @@
                 {{-- Img Proj --}}
                 <div class="col-12 mt-3 ">
                     <label class="form-label my-label" for="imgProject">Project Image</label>
-                    <input class="form-control form-control-sm" type="text" name="img" id="imgProject" value="{{$project['img']}}">
+                    <input class="form-control form-control-sm @error('img') is-invalid border-danger @enderror" accept="image/*" type="file" name="img" id="imgProject">
+                    @if (Str::contains($project->img, 'https'))
+                    <img class="my-2" src="{{ $project->img }}" alt="" width="200">
+                    @else
+                    <img class="my-2" src="{{asset('/storage/' . $project->img)}}" alt="" width="200">
+                    @endif
+                    @error('img')
+                        <div id="imgProject" class="form-text text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
     
                 {{-- Date Start Proj --}}
