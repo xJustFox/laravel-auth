@@ -91,6 +91,11 @@ class ProjectController extends Controller
     {
         $form_data = $request->all();
 
+        $exists = Project::where('name', 'LIKE', $form_data['name'])->where('id', '!=', $project['id'])->get();
+        if (count($exists) > 0) {
+            // Inserire l'error
+        }
+
         if ($request->hasFile('img')) {
             if ($project->img != null) {
                 Storage::disk('public')->delete($project->img);
