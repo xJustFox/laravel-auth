@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -75,9 +76,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Project $project, Request $request)
     {
-        return view('admin.projects.edit', compact('project') );
+        $error_message = '';
+        if (!empty($request->all())) {
+            $messages = $request->all();
+            $error_message = $messages['error_message'];
+        }
+        return view('admin.projects.edit', compact('project', 'error_message') );
     }
 
     /**
@@ -93,7 +99,8 @@ class ProjectController extends Controller
 
         $exists = Project::where('name', 'LIKE', $form_data['name'])->where('id', '!=', $project['id'])->get();
         if (count($exists) > 0) {
-            // Inserire l'error
+            $error_message = 'Hai inserito un titolo già presente in un altro progetto';
+            return redirect()->route('admin.projects.edit', compact('project', 'error_message'));
         }
 
         if ($request->hasFile('img')) {

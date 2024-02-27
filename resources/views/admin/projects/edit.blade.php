@@ -15,6 +15,9 @@
                     @error('name')
                         <div id="nameError" class="form-text text-danger">{{$message}}</div>
                     @enderror
+                    @if ($error_message != null)
+                    <div id="nameError" class="form-text text-danger">{{$error_message}}</div>
+                    @endif
                 </div>
     
                 {{-- Link Proj --}}
